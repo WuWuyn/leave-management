@@ -1,6 +1,6 @@
 <%-- 
     Document   : login
-    Created on : Feb 26, 2025, 1:59:24 PM
+    Created on : Mar 5, 2025, 11:56:35 PM
     Author     : admin
 --%>
 
@@ -9,13 +9,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
         <!-- BOXICONS -->
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
         <!-- CSS -->
-        <link rel="stylesheet" href="view/auth/css/style_login.css">
+        <link rel="stylesheet" href="assets/css/style_login.css">
+
+        <title>Login</title>
     </head>
     <body>
         <!--All wrapper around form-->
@@ -29,18 +31,24 @@
             </div>
 
             <!--LOGIN form-->
-            <form action="/ctrl/auth/login" method="post" class="login-form" autocomplete="on">
+            <form action="login" method="post" class="login-form" autocomplete="on">
 
+                <c:if test="${not empty requestScope.error_mess}">
+                    <div style="color: red; font-weight: 100px;" class="error" >
+                        ${requestScope.error_mess}
+                    </div>
+                </c:if>
+                
                 <!--Input username-->
                 <div class="input-box">
-                    <input type="text" class="input-field" id="username" name="username" placeholder="Enter your username">
+                    <input type="text" name="username" class="input-field" id="username" placeholder="Enter your username">
                     <label for="username" class="label">Username</label>
                     <i class='bx bx-user icon'></i>
                 </div>
 
                 <!--Input password-->
                 <div class="input-box">
-                    <input type="password" class="input-field" id="password" name="password" placeholder="Enter your password">
+                    <input type="password" name="password" class="input-field" id="password" placeholder="Enter your password">
                     <label for="password" class="label">Password</label>
                     <i class='bx bx-lock-alt icon'></i>
                 </div>
@@ -60,13 +68,10 @@
                     <!--Using google Account-->
                     <button class="btn-submit" value="LoginGG">Sign in with Google<i class='bx bxl-google'></i></button>
                 </div>
-
-                <!--Register-->
-                <div class="switch-form">
-                    <span>Don't have an account? <a href="register.html">Register</a> </span>
-                </div>
+                
             </form>
 
         </div>
+
     </body>
 </html>

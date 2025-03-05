@@ -3,29 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-
-import java.util.Date;
+import java.sql.*;
+import java.util.ArrayList;
 
 /**
  *
  * @author admin
  */
 public class Employee {
-    
-    private String empID;
+    private int empID;
     private String empName;
-    private Date dob;
-    private boolean gender;
-    private String phone;
-    private String email;
-    private Department dep;
+    private Date empDob;
+    private boolean empGender;
     private Employee manager;
+    private Department dep;
+    
+    private ArrayList<Employee> staffs = new ArrayList<>();
+    private ArrayList<Employee> directedStaffs = new ArrayList<>();
 
-    public String getEmpID() {
+    public int getEmpID() {
         return empID;
     }
 
-    public void setEmpID(String empID) {
+    public void setEmpID(int empID) {
         this.empID = empID;
     }
 
@@ -37,36 +37,28 @@ public class Employee {
         this.empName = empName;
     }
 
-    public Date getDob() {
-        return dob;
+    public Date getEmpDob() {
+        return empDob;
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
+    public void setEmpDob(Date empDob) {
+        this.empDob = empDob;
     }
 
-    public boolean isGender() {
-        return gender;
+    public boolean isEmpGender() {
+        return empGender;
     }
 
-    public void setGender(boolean gender) {
-        this.gender = gender;
+    public void setEmpGender(boolean empGender) {
+        this.empGender = empGender;
     }
 
-    public String getPhone() {
-        return phone;
+    public Employee getManager() {
+        return manager;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setManager(Employee manager) {
+        this.manager = manager;
     }
 
     public Department getDep() {
@@ -77,12 +69,20 @@ public class Employee {
         this.dep = dep;
     }
 
-    public Employee getManager() {
-        return manager;
+    public ArrayList<Employee> getStaffs() {
+        return staffs;
     }
 
-    public void setManager(Employee manager) {
-        this.manager = manager;
+    public void setStaffs(ArrayList<Employee> staffs) {
+        this.staffs = staffs;
+    }
+
+    public ArrayList<Employee> getDirectedStaffs() {
+        return directedStaffs;
+    }
+
+    public void setDirectedStaffs(ArrayList<Employee> directedStaffs) {
+        this.directedStaffs = directedStaffs;
     }
     
     

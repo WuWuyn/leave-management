@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author admin
@@ -13,9 +11,8 @@ import java.util.ArrayList;
 public class User {
     private String username;
     private String password;
-    private Employee employee;
-    private boolean isActivation;
-    private ArrayList<Role> roles;
+    private String email;
+    private Employee emp;
 
     public String getUsername() {
         return username;
@@ -25,36 +22,21 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Employee getEmp() {
+        return emp;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmp(Employee emp) {
+        this.emp = emp;
     }
-
-    public boolean isIsActivation() {
-        return isActivation;
-    }
-
-    public void setIsActivation(boolean isActivation) {
-        this.isActivation = isActivation;
-    }
-
-    public ArrayList<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(ArrayList<Role> roles) {
-        this.roles = roles;
-    }
+    
     
 }
