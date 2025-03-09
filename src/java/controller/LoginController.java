@@ -56,18 +56,27 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        
         UserDBContext udb = new UserDBContext();
         String email = udb.getEmail(username, password);
+        
         if (email != null) {
-            String otp = generateOTP();
-            req.getSession().setAttribute("otp", otp);
-            sendOtp(email, otp);
-
-            resp.sendRedirect("verify.jsp");
+            
+//            String otp = generateOTP();
+//            req.getSession().setAttribute("otp", otp);
+//            req.getSession().setAttribute("otp_timestamp", System.currentTimeMillis());
+            req.getSession().setAttribute("email", email);
+            resp.sendRedirect("home");
+            
+//            sendOtp(email, otp);
+//
+//            resp.sendRedirect("verify.jsp");
         } else {
-            req.setAttribute("error_mess", "Invalid username or password");
+            req.setAttribute("error_login", "Invalid username or password");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
+
+        
     }
 
     @Override

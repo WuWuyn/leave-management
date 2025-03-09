@@ -9,14 +9,14 @@ package model;
  * @author admin
  */
 public class Department {
-    private int depID;
+    private String depID;
     private String depName;
 
-    public int getDepID() {
+    public String getDepID() {
         return depID;
     }
 
-    public void setDepID(int depID) {
+    public void setDepID(String depID) {
         this.depID = depID;
     }
 

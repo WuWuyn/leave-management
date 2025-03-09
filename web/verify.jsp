@@ -28,9 +28,14 @@
                 </div>
                 <h4>Verify Your Email</h4>
                 <p>Please enter the verification code we sent<br> to your email</p>
+
+                <br>
+                <c:if test="${not empty requestScope.error_verify}">
+                    <p style="color:red">${requestScope.error_verify}</p>
+                </c:if>
             </div>
 
-            <form action="login/verify" method="post">
+            <form action="verify" method="post">
                 <div class="auth-pin-wrap">
                     <input type="text" class="code-input" name="num1" maxlength="1" required>
                     <input type="text" class="code-input" name="num2" maxlength="1" required>

@@ -33,12 +33,12 @@
             <!--LOGIN form-->
             <form action="login" method="post" class="login-form" autocomplete="on">
 
-                <c:if test="${not empty requestScope.error_mess}">
+                <c:if test="${not empty requestScope.error_login}">
                     <div style="color: red; font-weight: 100px;" class="error" >
                         ${requestScope.error_mess}
                     </div>
                 </c:if>
-                
+
                 <!--Input username-->
                 <div class="input-box">
                     <input type="text" name="username" class="input-field" id="username" placeholder="Enter your username">
@@ -63,12 +63,12 @@
 
                 <!--Button submit-->
                 <div class="input-box">
-                    <button class="btn-submit" value="Login">Login <i class='bx bx-log-in'></i></button>
+                    <button class="btn-submit" type="submit">Login <i class='bx bx-log-in'></i></button>
                     <p class="separator">or</p>
                     <!--Using google Account-->
-                    <button class="btn-submit" value="LoginGG">Sign in with Google<i class='bx bxl-google'></i></button>
+                    <a><button class="btn-submit">Sign in with Google<i class='bx bxl-google'></i></button></a>
                 </div>
-                
+
             </form>
 
         </div>

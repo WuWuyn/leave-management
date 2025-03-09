@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author admin
  */
 public class Employee {
-    private int empID;
+    private String empID;
     private String empName;
     private Date empDob;
     private boolean empGender;
@@ -21,13 +21,14 @@ public class Employee {
     private ArrayList<Employee> staffs = new ArrayList<>();
     private ArrayList<Employee> directedStaffs = new ArrayList<>();
 
-    public int getEmpID() {
+    public String getEmpID() {
         return empID;
     }
 
-    public void setEmpID(int empID) {
+    public void setEmpID(String empID) {
         this.empID = empID;
     }
+
 
     public String getEmpName() {
         return empName;

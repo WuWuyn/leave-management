@@ -4,6 +4,7 @@
     Author     : admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Hello ${sessionScope.user.username}</h1>
+        
+        <c:if test="${sessionScope.user.emp.manager ne null}">
+           Report to ${sessionScope.user.emp.manager.empName}  <br/>
+        </c:if>
+        Report to you: <br/>
+        <c:forEach items="${sessionScope.user.emp.staffs}" var="s"> 
+            ${s.empName} <br/>
+        </c:forEach>
     </body>
 </html>
+
