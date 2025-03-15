@@ -66,6 +66,8 @@ public class LoginController extends HttpServlet {
 //            req.getSession().setAttribute("otp", otp);
 //            req.getSession().setAttribute("otp_timestamp", System.currentTimeMillis());
             req.getSession().setAttribute("email", email);
+
+
             resp.sendRedirect("home");
             
 //            sendOtp(email, otp);

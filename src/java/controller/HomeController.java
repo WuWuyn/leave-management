@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import model.Employee;
 import model.User;
 
@@ -47,7 +46,7 @@ public class HomeController extends HttpServlet {
             response.sendRedirect("home.jsp");
         }
         else{
-            response.getWriter().print("Access Denied!");
+            response.sendRedirect("403.jsp");
         }
     }
 
