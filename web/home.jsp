@@ -143,7 +143,7 @@
                 ${s.empName} <br/>
             </c:forEach>
                 
-                <a href="request.jsp">Create a leave request</a>
+                <a href="${pageContext.request.contextPath}/request/create">Create a leave request</a>
         </section>
         <script>
             let arrow = document.querySelectorAll(".arrow");

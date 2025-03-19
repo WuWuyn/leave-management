@@ -15,7 +15,7 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
         <!-- CSS -->
-        <link rel="stylesheet" href="assets/css/style_verify.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/verify.css" />
 
         <title>Verify your email</title>
     </head>

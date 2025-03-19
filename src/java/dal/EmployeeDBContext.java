@@ -46,7 +46,7 @@ public class EmployeeDBContext extends DBContext<Employee> {
 
             while (rs.next()) {
                 Employee e = new Employee();
-                e.setEmpID(id);
+                e.setEmpID(rs.getString("staffid"));
                 e.setEmpName(rs.getNString("staffname"));
                 e.setEmpDob(rs.getDate("staffdob"));
                 e.setEmpGender(rs.getBoolean("staffgender"));
