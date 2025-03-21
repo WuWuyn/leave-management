@@ -79,7 +79,7 @@
                             <span class="link_name">Analytics</span>
                         </a>
                         <ul class="sub-menu blank">
-                            <li><a class="link_name" href="#">Analytics</a></li>
+                            <li><a class="link_name">Analytics</a></li>
                         </ul>
                     </li>
                 </c:if>
@@ -89,7 +89,7 @@
                         <span class="link_name">Chart</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Chart</a></li>
+                        <li><a class="link_name">Chart</a></li>
                     </ul>
                 </li>
                 <li>
@@ -98,7 +98,7 @@
                         <span class="link_name">Explore</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Explore</a></li>
+                        <li><a class="link_name">Explore</a></li>
                     </ul>
                 </li>
                 <li>
@@ -107,17 +107,17 @@
                         <span class="link_name">History</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">History</a></li>
+                        <li><a class="link_name">History</a></li>
                     </ul>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/logout">
                         <i class="bx bx-log-out"></i>
                         <span class="link_name">Log Out</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Log Out</a></li>
+                        <li><a class="link_name">Log Out</a></li>
                     </ul>
                 </li>
 

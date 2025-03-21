@@ -4,6 +4,7 @@
     Author     : admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -32,10 +33,9 @@
 
             <!--LOGIN form-->
             <form action="login" method="post" class="login-form" autocomplete="on">
-
                 <c:if test="${not empty requestScope.error_login}">
                     <div style="color: red; font-weight: 100px;" class="error" >
-                        ${requestScope.error_mess}
+                        ${requestScope.error_login}
                     </div>
                 </c:if>
 
@@ -66,7 +66,9 @@
                     <button class="btn-submit" type="submit">Login <i class='bx bx-log-in'></i></button>
                     <p class="separator">or</p>
                     <!--Using google Account-->
-                    <a><button class="btn-submit">Sign in with Google<i class='bx bxl-google'></i></button></a>
+                    <div class="separator">
+                        <a href="${pageContext.request.contextPath}/loginGG" >Sign in with Google Account</a>
+                    </div>
                 </div>
 
             </form>
