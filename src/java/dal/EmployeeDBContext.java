@@ -17,7 +17,7 @@ import model.Department;
  */
 public class EmployeeDBContext extends DBContext<Employee> {
 
-    public Employee get(String id) {
+    public Employee getEmployee(String id) {
         ArrayList<Employee> employees = new ArrayList<>();
 
         try {

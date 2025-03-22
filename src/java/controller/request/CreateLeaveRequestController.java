@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller;
+package controller.request;
 
+import controller.authentication.BaseRequiredAuthentication;
 import dal.LeaveTypeDBContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -75,7 +76,7 @@ public class CreateLeaveRequestController extends BaseRequiredAuthentication {
 
             req.setAttribute("employees", employees);
             req.setAttribute("leaveType", leaveTypes);
-            req.getRequestDispatcher("../request.jsp").forward(req, resp);
+            req.getRequestDispatcher("../request/create.jsp").forward(req, resp);
 
         } catch (IOException ex) {
             Logger.getLogger(CreateLeaveRequestController.class.getName()).log(Level.SEVERE, null, ex);

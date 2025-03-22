@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.home;
 
 import dal.EmployeeDBContext;
 import dal.UserDBContext;
@@ -38,15 +38,15 @@ public class HomeController extends HttpServlet {
         
         if(user != null){
             EmployeeDBContext edb = new EmployeeDBContext();
-            Employee profile = edb.get(user.getEmp().getEmpID());
+            Employee profile = edb.getEmployee(user.getEmp().getEmpID());
             profile.setManager(user.getEmp().getManager());
             user.setEmp(profile);
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect("home.jsp");
+            request.getRequestDispatcher("home/home.jsp").forward(request, response);
         }
         else{
-            response.sendRedirect("403.jsp");
+            response.sendRedirect(getServletContext().getContextPath()+"/login");
         }
     }
 

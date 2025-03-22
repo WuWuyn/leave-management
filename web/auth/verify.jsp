@@ -52,7 +52,7 @@
 
         </div>
 
-        <script src="assets/js/verify_script.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/verify_script.js"></script>
 
 
 

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller;
+package controller.authentication;
 
 import com.mailersend.sdk.MailerSend;
 import com.mailersend.sdk.MailerSendResponse;
@@ -72,10 +72,10 @@ public class LoginController extends HttpServlet {
             
 //            sendOtp(email, otp);
 //
-//            resp.sendRedirect("verify.jsp");
+//            req.getRequestDispatcher("auth/verify.jsp").forward(req, resp);
         } else {
             req.setAttribute("error_login", "Invalid username or password");
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
+            req.getRequestDispatcher("auth/login.jsp").forward(req, resp);
         }
 
         
@@ -83,7 +83,7 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        req.getRequestDispatcher("auth/login.jsp").forward(req, resp);
     }
 
 }

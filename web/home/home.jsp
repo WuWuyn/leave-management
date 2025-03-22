@@ -13,7 +13,7 @@
     <head>
         <meta charset="UTF-8" />
         <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
-        <link rel="stylesheet" href="assets/css/home.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/home.css" />
         <!-- Boxiocns CDN Link -->
         <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

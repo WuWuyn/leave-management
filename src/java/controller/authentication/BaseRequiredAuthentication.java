@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller;
+package controller.authentication;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -40,7 +40,7 @@ public abstract class BaseRequiredAuthentication extends HttpServlet{
         if(u != null && isAllowedAccess(u, req)){
             doPost(req, resp, u);
         } else{
-            resp.getWriter().print("Access Denied!");
+            resp.sendRedirect("../auth/403.jsp");
         }
     }
 
@@ -50,7 +50,7 @@ public abstract class BaseRequiredAuthentication extends HttpServlet{
         if(u != null && isAllowedAccess(u, req)){
             doGet(req, resp, u);
         } else{
-            resp.getWriter().print("Access Denied!");
+            resp.sendRedirect("../auth/403.jsp");
         }
     }
 
