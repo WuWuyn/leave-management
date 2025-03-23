@@ -92,7 +92,7 @@
 
                     <div class="input-box">
                         <label for="file-upload" class="file-upload-label">Attachment</label><b>
-                            <input type="file" id="file-upload" class="" name="file"/>
+                            <input type="file" id="file-upload" class="" name="attachment"/>
                     </div>
 
                 </div>

@@ -17,7 +17,7 @@ import model.Role;
  *
  * @author admin
  */
-public class UserDBContext extends DBContext<User> {
+public class UserDB extends DBContext<User> {
 
     public String getEmail(String username, String password) {
         String email = null;
@@ -32,13 +32,13 @@ public class UserDBContext extends DBContext<User> {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -110,13 +110,13 @@ public class UserDBContext extends DBContext<User> {
             }
             return user;
         } catch (SQLException ex) {
-            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             if(connection != null){
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

@@ -40,7 +40,7 @@ public abstract class BaseRequiredAuthentication extends HttpServlet{
         if(u != null && isAllowedAccess(u, req)){
             doPost(req, resp, u);
         } else{
-            resp.sendRedirect("../auth/403.jsp");
+            req.getRequestDispatcher("/auth/403.jsp").forward(req, resp);
         }
     }
 
@@ -50,7 +50,7 @@ public abstract class BaseRequiredAuthentication extends HttpServlet{
         if(u != null && isAllowedAccess(u, req)){
             doGet(req, resp, u);
         } else{
-            resp.sendRedirect("../auth/403.jsp");
+            req.getRequestDispatcher("/auth/403.jsp").forward(req, resp);
         }
     }
 

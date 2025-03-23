@@ -4,8 +4,8 @@
  */
 package controller.home;
 
-import dal.EmployeeDBContext;
-import dal.UserDBContext;
+import dal.EmployeeDB;
+import dal.UserDB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,11 +33,11 @@ public class HomeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = (String) request.getSession().getAttribute("email");
-        UserDBContext udb = new UserDBContext();
+        UserDB udb = new UserDB();
         User user = udb.get(email);
         
         if(user != null){
-            EmployeeDBContext edb = new EmployeeDBContext();
+            EmployeeDB edb = new EmployeeDB();
             Employee profile = edb.getEmployee(user.getEmp().getEmpID());
             profile.setManager(user.getEmp().getManager());
             user.setEmp(profile);

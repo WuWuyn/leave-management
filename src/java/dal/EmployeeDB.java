@@ -15,7 +15,7 @@ import model.Department;
  *
  * @author admin
  */
-public class EmployeeDBContext extends DBContext<Employee> {
+public class EmployeeDB extends DBContext<Employee> {
 
     public Employee getEmployee(String id) {
         ArrayList<Employee> employees = new ArrayList<>();
@@ -63,13 +63,13 @@ public class EmployeeDBContext extends DBContext<Employee> {
                 employees.add(e);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmployeeDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(EmployeeDB.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -104,6 +104,7 @@ public class EmployeeDBContext extends DBContext<Employee> {
         }
         return null;
     }
+    
 
     @Override
     public ArrayList<Employee> list() {

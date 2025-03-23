@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  *
  * @author admin
  */
-public class LeaveTypeDBContext extends DBContext<LeaveType>{
+public class LeaveTypeDB extends DBContext<LeaveType>{
 
     public ArrayList<LeaveType> getLeaveType(){
         
@@ -32,7 +32,7 @@ public class LeaveTypeDBContext extends DBContext<LeaveType>{
                 list.add(type);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(LeaveTypeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LeaveTypeDB.class.getName()).log(Level.SEVERE, null, ex);
         }    
         return list;
     }
@@ -44,7 +44,22 @@ public class LeaveTypeDBContext extends DBContext<LeaveType>{
 
     @Override
     public LeaveType get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String sql = "select * from LeaveTypes where typeID=?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            
+            while(rs.next()){
+                LeaveType type = new LeaveType();
+                type.setTypeID(rs.getInt("typeID"));
+                type.setTypeName(rs.getNString("typeName"));
+                return type;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LeaveTypeDB.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        return null;
     }
 
     @Override

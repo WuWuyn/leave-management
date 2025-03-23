@@ -8,7 +8,7 @@ import com.mailersend.sdk.MailerSend;
 import com.mailersend.sdk.MailerSendResponse;
 import com.mailersend.sdk.emails.Email;
 import com.mailersend.sdk.exceptions.MailerSendException;
-import dal.UserDBContext;
+import dal.UserDB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -57,7 +57,7 @@ public class LoginController extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         
-        UserDBContext udb = new UserDBContext();
+        UserDB udb = new UserDB();
         String email = udb.getEmail(username, password);
         
         if (email != null) {

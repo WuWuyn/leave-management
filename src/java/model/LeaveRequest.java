@@ -11,19 +11,49 @@ import java.sql.*;
  * @author admin
  */
 public class LeaveRequest {
+    
+    private int id;
     private String title;
     private LeaveType type;
     private String reason;
-    private Date fromDate;
-    private Date toDate;
-    private byte[] fileBytes;
-    private int status;
-    private User createdBy; //This is username of account who created request
+    private Date startDate;
+    private Date endDate;
+    private String attachment;
+    private String status;
+    private User createdBy;
     private Timestamp createdDate;
-    private Employee owner; //This is employee code of who want to create request
-    private User approvalBy; //This is the name of manager who approved the request
+    private Employee owner;
+    private User approvalBy;
     private Timestamp approvalDate;
-    private String comments; //Comment of manager
+    private String comments;
+
+    public LeaveRequest(int id, String title, LeaveType type, String reason, Date startDate, Date endDate, String attachment, String status, User createdBy, Timestamp createdDate, Employee owner, User approvalBy, Timestamp approvalDate, String comments) {
+        this.id = id;
+        this.title = title;
+        this.type = type;
+        this.reason = reason;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.attachment = attachment;
+        this.status = status;
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+        this.owner = owner;
+        this.approvalBy = approvalBy;
+        this.approvalDate = approvalDate;
+        this.comments = comments;
+    }
+
+    public LeaveRequest() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -49,35 +79,35 @@ public class LeaveRequest {
         this.reason = reason;
     }
 
-    public Date getFromDate() {
-        return fromDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getToDate() {
-        return toDate;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-    public byte[] getFileBytes() {
-        return fileBytes;
+    public String getAttachment() {
+        return attachment;
     }
 
-    public void setFileBytes(byte[] fileBytes) {
-        this.fileBytes = fileBytes;
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -128,6 +158,7 @@ public class LeaveRequest {
     public void setComments(String comments) {
         this.comments = comments;
     }
-
+    
+    
 
 }

@@ -5,8 +5,11 @@
 package controller.request;
 
 import controller.authentication.BaseRequiredAuthentication;
-import dal.LeaveTypeDBContext;
+import dal.EmployeeDB;
+import dal.LeaveRequestDB;
+import dal.LeaveTypeDB;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
@@ -19,44 +22,98 @@ import model.LeaveRequest;
 import model.LeaveType;
 import model.User;
 import java.sql.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author admin
  */
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB threshold before writing to disk
+        maxFileSize = 1024 * 1024 * 10, // 10MB max file size
+        maxRequestSize = 1024 * 1024 * 50 // 50MB max request size
+)
 public class CreateLeaveRequestController extends BaseRequiredAuthentication {
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp, User u) {
-        LeaveRequest lr = new LeaveRequest();
-        try {
-            //Title
-            lr.setTitle(req.getParameter("title"));
-            //Type
-            LeaveType lt = new LeaveType();
-            lt.setTypeID(Integer.parseInt(req.getParameter("typeID")));
-            lr.setType(lt);
-            //Reason
-            lr.setReason(req.getParameter("reason"));
-            //From-To Date
-            lr.setFromDate(Date.valueOf(req.getParameter("from-date")));
-            lr.setToDate(Date.valueOf(req.getParameter("to-date")));
-            //Owner
-            Employee e = new Employee();
-            e.setEmpID(req.getParameter("empID"));
-            lr.setOwner(e);
-            //Created By
-            lr.setCreatedBy(u);
-            //Created Date
-            lr.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+    private static final String UPLOAD_DIR = "uploads";
 
-            Part part = req.getPart("file");
-            
-//            String realPath = req.getServletContext().getRealPath();
-        } catch (IOException ex) {
-            Logger.getLogger(CreateLeaveRequestController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
+    private LeaveRequestDB leaveRequestDAO = new LeaveRequestDB();
+    private EmployeeDB employeeDAO = new EmployeeDB();
+    private LeaveTypeDB leaveTypeDAO = new LeaveTypeDB();
+
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, User u) {
+        try {
+            // Extract form data
+            String title = request.getParameter("title");
+            String employeeId = request.getParameter("empID");
+            String fromDateStr = request.getParameter("from-date");
+            String toDateStr = request.getParameter("to-date");
+            String leaveTypeId = request.getParameter("typeID");
+            String reason = request.getParameter("reason");
+
+            // Handle file upload for attachment
+            Part filePart = request.getPart("attachment");
+            String attachment = null;
+            if (filePart != null && filePart.getSize() > 0) {
+                String fileName = extractFileName(filePart);
+                // Save the file to a designated directory (e.g., "uploads/")
+                String uploadPath = getServletContext().getRealPath("") + "uploads/";
+                java.io.File uploadDir = new java.io.File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                filePart.write(uploadPath + fileName);
+                attachment = "uploads/" + fileName; // Store relative path
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            // Parse the date strings into LocalDate objects
+            LocalDate fromDateLocal = LocalDate.parse(fromDateStr, formatter);
+            LocalDate toDateLocal = LocalDate.parse(toDateStr, formatter);
+
+            // Convert to java.sql.Date for database storage
+            Date fromDate = Date.valueOf(fromDateLocal);
+            Date toDate = Date.valueOf(toDateLocal);
+
+            // Fetch related objects
+            Employee owner = employeeDAO.getEmployee(employeeId);
+            LeaveType type = leaveTypeDAO.get(Integer.parseInt(leaveTypeId));
+
+            // Create and populate LeaveRequest object
+            LeaveRequest leaveRequest = new LeaveRequest();
+            leaveRequest.setTitle(title);
+            leaveRequest.setOwner(owner);
+            leaveRequest.setStartDate(fromDate);
+            leaveRequest.setEndDate(toDate);
+            leaveRequest.setType(type);
+            leaveRequest.setAttachment(attachment);
+            leaveRequest.setReason(reason);
+            leaveRequest.setStatus("Pending"); // Default status
+            leaveRequest.setCreatedBy(u);
+            leaveRequest.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+            // Approval-related fields (approvalBy, approvalDate, comments) remain null initially
+
+            // Insert into database
+            leaveRequestDAO.insert(leaveRequest);
+
+            // Redirect to success page
+            response.sendRedirect("../request");
+
+        } catch (ServletException | IOException | IllegalArgumentException ex) {
             Logger.getLogger(CreateLeaveRequestController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -65,7 +122,7 @@ public class CreateLeaveRequestController extends BaseRequiredAuthentication {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, User u) {
         try {
-            LeaveTypeDBContext ldb = new LeaveTypeDBContext();
+            LeaveTypeDB ldb = new LeaveTypeDB();
             ArrayList<LeaveType> leaveTypes = ldb.getLeaveType();
 
             ArrayList<Employee> employees = new ArrayList<>();
@@ -78,9 +135,7 @@ public class CreateLeaveRequestController extends BaseRequiredAuthentication {
             req.setAttribute("leaveType", leaveTypes);
             req.getRequestDispatcher("../request/create.jsp").forward(req, resp);
 
-        } catch (IOException ex) {
-            Logger.getLogger(CreateLeaveRequestController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServletException ex) {
+        } catch (IOException | ServletException ex) {
             Logger.getLogger(CreateLeaveRequestController.class.getName()).log(Level.SEVERE, null, ex);
         }
 

@@ -53,14 +53,6 @@
                     <i class='bx bx-lock-alt icon'></i>
                 </div>
 
-                <!--Forgot password-->
-                <div class="form-cols">
-                    <div class="col-1"></div>
-                    <div class="col-2">     <!--Make it to right hand-->
-                        <a href="#">Forgot password</a>
-                    </div>
-                </div>
-
                 <!--Button submit-->
                 <div class="input-box">
                     <button class="btn-submit" type="submit">Login <i class='bx bx-log-in'></i></button>

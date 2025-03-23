@@ -15,6 +15,15 @@ public class User {
     private String email;
     private Employee employee;
     private ArrayList<Role> roles = new ArrayList<>();
+    private ArrayList<LeaveRequest> leaveRequests = new ArrayList<>();
+
+    public ArrayList<LeaveRequest> getLeaveRequests() {
+        return leaveRequests;
+    }
+
+    public void setLeaveRequests(ArrayList<LeaveRequest> leaveRequests) {
+        this.leaveRequests = leaveRequests;
+    }
 
 
     public String getUsername() {

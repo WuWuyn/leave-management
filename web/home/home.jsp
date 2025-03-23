@@ -64,50 +64,42 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/home">
                         <i class="bx bx-grid-alt"></i>
-                        <span class="link_name">Agenda</span>
+                        <span class="link_name">Home</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Agenda</a></li>
+                        <li><a class="link_name">Home</a></li>
                     </ul>
                 </li>
-                <c:if test="${sessionScope.user.emp.staffs eq null}">
+                <c:if test="${!(sessionScope.user.emp.staffs eq null)}">
                     <li>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/agenda">
                             <i class="bx bx-pie-chart-alt-2"></i>
-                            <span class="link_name">Analytics</span>
+                            <span class="link_name">Agenda</span>
                         </a>
                         <ul class="sub-menu blank">
-                            <li><a class="link_name">Analytics</a></li>
+                            <li><a class="link_name">Agenda</a></li>
                         </ul>
                     </li>
-                </c:if>
-                <li>
+                    <li>
                     <a href="#">
                         <i class="bx bx-line-chart"></i>
-                        <span class="link_name">Chart</span>
+                        <span class="link_name">Process Request</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name">Chart</a></li>
+                        <li><a class="link_name">Process Request</a></li>
                     </ul>
                 </li>
+                </c:if>
+                
                 <li>
-                    <a href="#">
-                        <i class="bx bx-compass"></i>
-                        <span class="link_name">Explore</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name">Explore</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/request">
                         <i class="bx bx-history"></i>
-                        <span class="link_name">History</span>
+                        <span class="link_name">Requests</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name">History</a></li>
+                        <li><a class="link_name">Requests</a></li>
                     </ul>
                 </li>
 
@@ -143,8 +135,8 @@
                 ${s.empName} <br/>
             </c:forEach>
                 
-                <a href="${pageContext.request.contextPath}/request/create">Create a leave request</a>
         </section>
+        
         <script>
             let arrow = document.querySelectorAll(".arrow");
             for (var i = 0; i < arrow.length; i++) {
