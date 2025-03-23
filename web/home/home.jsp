@@ -42,6 +42,110 @@
                 display: none; /* Hide text in closed state */
             }
 
+            .content-wrapper {
+                background-color: white;
+                border-radius: 10px;
+                padding: 20px;
+                width: 90%;
+                margin: 0 auto 20px;
+            }
+
+
+            .box-container {
+                display: flex;
+                justify-content: center;
+                gap: 20px; /* Space between boxes */
+            }
+            .box {
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px; /* Rounded corners */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+                width: 200px;
+                text-align: left;
+                transition: transform 0.2s; /* Hover effect */
+            }
+            .box:hover {
+                transform: translateY(-5px); /* Slight lift on hover */
+            }
+            .box h3 {
+                font-size: 14px;
+                color: #666; /* Gray color for title */
+                text-transform: uppercase;
+                margin: 0 0 10px 0;
+            }
+            .box p {
+                font-size: 32px;
+                font-weight: bold;
+                color: #003087; /* Dark blue for numbers */
+                margin: 0;
+            }
+
+
+            .calendar-container {
+                margin-top: 20px;
+                overflow-x: auto;
+                padding: 15px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+            .calendar-controls {
+                margin-bottom: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 16px;
+            }
+            .calendar-table {
+                border-collapse: collapse;
+                width: 100%;
+                min-width: 600px;
+                font-size: 14px;
+            }
+            .calendar-table th, .calendar-table td {
+                border: 1px solid #ddd;
+                padding: 12px;
+                text-align: center;
+                min-width: 80px;
+            }
+            .calendar-table th {
+                background-color: #f2f2f2;
+                font-weight: 600;
+                color: #333;
+                text-transform: uppercase;
+            }
+            .calendar-table td.off {
+                background-color: #e63946;
+                color: white;
+            }
+            .calendar-table td.working {
+                background-color: #06d6a0;
+                color: white;
+            }
+            .calendar-table tr:hover {
+                background-color: #f9f9f9;
+            }
+            .nav-btn {
+                padding: 8px 20px;
+                background-color: #003087;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+            .nav-btn:hover {
+                background-color: #0056b3;
+            }
+            @media (max-width: 768px) {
+                .calendar-table th, .calendar-table td {
+                    padding: 8px;
+                    min-width: 60px;
+                }
+                .nav-btn {
+                    padding: 6px 12px;
+                }
+            }
 
         </style>
 
@@ -74,16 +178,16 @@
                 </li>
                 <c:if test="${!(sessionScope.user.emp.staffs eq null)}">
                     <li>
-                    <a href="${pageContext.request.contextPath}/staffrequest">
-                        <i class="bx bx-line-chart"></i>
-                        <span class="link_name">Staff Request</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name">Staff Request</a></li>
-                    </ul>
-                </li>
+                        <a href="${pageContext.request.contextPath}/staffrequest">
+                            <i class="bx bx-line-chart"></i>
+                            <span class="link_name">Staff Request</span>
+                        </a>
+                        <ul class="sub-menu blank">
+                            <li><a class="link_name">Staff Request</a></li>
+                        </ul>
+                    </li>
                 </c:if>
-                
+
                 <li>
                     <a href="${pageContext.request.contextPath}/request">
                         <i class="bx bx-history"></i>
@@ -114,20 +218,49 @@
         <!--Section for display content-->
         <section class="home-section">
 
+            <div class="content-wrapper">
+                <!--<!-- Content -->
+                <h1>Hello ${sessionScope.user.username}</h1>
 
-            <!--<!-- Content -->
-            <h1>Hello ${sessionScope.user.username}</h1>
+                <div class="box-container">
+                    <div class="box">
+                        <h3>Total Staffs</h3>
+                        <p>${totalStaffs}</p>
+                    </div>
+                    <div class="box">
+                        <h3>Total Days Off</h3>
+                        <p>${totalDaysOff}</p>
+                    </div>
+                </div>
 
-            <c:if test="${sessionScope.user.emp.manager ne null}">
-                Report to ${sessionScope.user.emp.manager.empName}  <br/>
-            </c:if>
-            Report to you: <br/>
-            <c:forEach items="${sessionScope.user.emp.staffs}" var="s"> 
-                ${s.empName} <br/>
-            </c:forEach>
-                
+                <div class="calendar-container">
+                    <h2>Staff Agenda</h2>
+                    <div class="calendar-controls">
+                        <a href="${pageContext.request.contextPath}/home?startDate=${prevStartDate}" class="nav-btn">Previous Week</a>
+                        <span>Week of ${dateList[0]} to ${dateList[6]}</span>
+                        <a href="${pageContext.request.contextPath}/home?startDate=${nextStartDate}" class="nav-btn">Next Week</a>
+                    </div>
+                    <table class="calendar-table">
+                        <tr>
+                            <th>Staff</th>
+                                <c:forEach items="${dateList}" var="dateStr">
+                                <th>${dateStr}</th>
+                                </c:forEach>
+                        </tr>
+                        <c:forEach items="${staffList}" var="staff">
+                            <tr>
+                                <td>${staff.empName}</td>
+                                <c:forEach items="${statusMap[staff]}" var="status">
+                                    <td class="${status}"></td>
+                                </c:forEach>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </div>
+
         </section>
-        
+
         <script>
             let arrow = document.querySelectorAll(".arrow");
             for (var i = 0; i < arrow.length; i++) {

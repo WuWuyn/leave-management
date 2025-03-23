@@ -207,7 +207,8 @@
         <!--Section for display content-->
         <section class="home-section">
             <div class="content-wrapper">
-
+                <h2>All Staffs' Requests</h2>
+                <br>
                 <table border="1">
                     <thead>
                         <tr>

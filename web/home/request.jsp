@@ -206,6 +206,8 @@
         <!--Section for display content-->
         <section class="home-section">
             <div class="content-wrapper">
+                <h2>All My Requests</h2>
+                <br>
                 <button onclick="window.location.href = '${pageContext.request.contextPath}/request/create'">Create a Leave Request</button>
                 <table border="1">
                     <thead>
@@ -218,6 +220,7 @@
                             <th>Status</th>
                             <th>Created Date</th>
                             <th>Approval Date</th>
+                            <th>Processed By</th>
                             <th>Attachment</th>
                             <th>Detail</th>
                         </tr>
@@ -233,6 +236,7 @@
                                 <td>${r.status}</td>
                                 <td>${r.createdDate}</td>
                                 <td>${r.approvalDate}</td>
+                                <td>${r.approvalBy.username}</td>
                                 <td>
                                     <c:if test="${not empty r.attachment}">
                                         <a href="${pageContext.request.contextPath}/download?filePath=${r.attachment}">
@@ -240,7 +244,7 @@
                                         </a>
                                     </c:if>
                                 </td>
-                                <td><a href="detail?id=${r.id}">View</a></td>
+                                <td><a href="${pageContext.request.contextPath}/request/process?id=${r.id}">View</a></td>
                             </tr>
                         </c:forEach>
                     </tbody>
