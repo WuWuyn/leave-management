@@ -33,15 +33,7 @@ public class UserDB extends DBContext<User> {
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        } 
         return email;
     }
 
@@ -111,15 +103,7 @@ public class UserDB extends DBContext<User> {
             return user;
         } catch (SQLException ex) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
-            if(connection != null){
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        } 
         
         return null;
     }

@@ -64,15 +64,7 @@ public class EmployeeDB extends DBContext<Employee> {
             }
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeDB.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(EmployeeDB.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        } 
 
         if (employees.size() > 0) {
             Employee root = employees.get(0);

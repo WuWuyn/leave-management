@@ -13,8 +13,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
-    background: #e4e9f7;
-    height: 100%;
 }
 .sidebar {
     position: fixed;
@@ -225,9 +223,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     left: 260px;
     width: calc(100% - 260px);
     transition: all 0.5s ease;
-    margin-top: 0;
-    top: 0;
-    
 }
 .sidebar.close ~ .home-section {
     left: 78px;
@@ -237,8 +232,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     height: 60px;
     display: flex;
     align-items: center;
-    background: #e4e9f7;
-    width: 100%;
 }
 .home-section .home-content .bx-menu,
 .home-section .home-content .text {
@@ -258,6 +251,3 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
         display: none;
     }
 }
-
-
-
