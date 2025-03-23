@@ -33,15 +33,15 @@ public class LeaveRequestDB extends DBContext<LeaveRequest> {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 LeaveRequest request = new LeaveRequest();
-                
+
                 request.setId(rs.getInt("requestID"));
                 request.setTitle(rs.getString("title"));
-                
+
                 LeaveType lt = new LeaveType();
                 lt.setTypeID(rs.getInt("typeID"));
                 lt.setTypeName(rs.getNString("typeName"));
                 request.setType(lt);
-                
+
                 request.setReason(rs.getString("reasonDetail"));
                 request.setStartDate(rs.getDate("startDate"));
                 request.setEndDate(rs.getDate("endDate"));
@@ -49,17 +49,80 @@ public class LeaveRequestDB extends DBContext<LeaveRequest> {
                 request.setStatus(rs.getString("status"));
                 request.setCreatedBy(user);
                 request.setCreatedDate(rs.getTimestamp("createdDate"));
-                
+
                 Employee e = new Employee();
                 e.setEmpID(rs.getString("ownerID"));
                 request.setOwner(e);
-                
+
                 User manager = new User();
                 manager.setUsername(rs.getString("approvalBy"));
                 request.setApprovalBy(manager);
                 request.setApprovalDate(rs.getTimestamp("approvalDate"));
                 request.setComments(rs.getString("comments"));
-                
+
+                lrs.add(request);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LeaveRequestDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lrs;
+    }
+
+    public ArrayList<LeaveRequest> getRequestForManager(User user) {
+        ArrayList<LeaveRequest> lrs = new ArrayList<>();
+
+        try {
+            String sql = "WITH EmployeeHierarchy AS (\n"
+                    + "    -- Anchor member: Direct reports of the logged-in manager\n"
+                    + "    SELECT empID\n"
+                    + "    FROM Employees\n"
+                    + "    WHERE managerID = ?\n"
+                    + "    UNION ALL\n"
+                    + "    -- Recursive member: Employees reporting to those already in the hierarchy\n"
+                    + "    SELECT e.empID\n"
+                    + "    FROM Employees e\n"
+                    + "    INNER JOIN EmployeeHierarchy eh ON e.managerID = eh.empID\n"
+                    + ")\n"
+                    + "-- Fetch all leave requests created by users who are staff in the hierarchy\n"
+                    + "SELECT lr.*, lt.typeName\n"
+                    + "FROM LeaveRequests lr\n"
+                    + "INNER JOIN Users u ON lr.createdBy = u.username\n"
+                    + "INNER JOIN EmployeeHierarchy eh ON u.empID = eh.empID\n"
+                    + "INNER JOIN LeaveTypes lt ON lr.typeID = lt.typeID;";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, user.getEmp().getEmpID());
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                LeaveRequest request = new LeaveRequest();
+
+                request.setId(rs.getInt("requestID"));
+                request.setTitle(rs.getString("title"));
+
+                LeaveType lt = new LeaveType();
+                lt.setTypeID(rs.getInt("typeID"));
+                lt.setTypeName(rs.getNString("typeName"));
+                request.setType(lt);
+
+                request.setReason(rs.getString("reasonDetail"));
+                request.setStartDate(rs.getDate("startDate"));
+                request.setEndDate(rs.getDate("endDate"));
+                request.setAttachment(rs.getString("attachment"));
+                request.setStatus(rs.getString("status"));
+                request.setCreatedBy(user);
+                request.setCreatedDate(rs.getTimestamp("createdDate"));
+
+                Employee e = new Employee();
+                e.setEmpID(rs.getString("ownerID"));
+                request.setOwner(e);
+
+                User manager = new User();
+                manager.setUsername(rs.getString("approvalBy"));
+                request.setApprovalBy(manager);
+                request.setApprovalDate(rs.getTimestamp("approvalDate"));
+                request.setComments(rs.getString("comments"));
+
                 lrs.add(request);
             }
 
@@ -76,7 +139,44 @@ public class LeaveRequestDB extends DBContext<LeaveRequest> {
 
     @Override
     public LeaveRequest get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "select * from LeaveRequests lr join LeaveTypes lt on lr.typeID = lt.typeID where requestID = ?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                LeaveRequest request = new LeaveRequest();
+
+                request.setId(rs.getInt("requestID"));
+                request.setTitle(rs.getString("title"));
+
+                LeaveType lt = new LeaveType();
+                lt.setTypeID(rs.getInt("typeID"));
+                lt.setTypeName(rs.getNString("typeName"));
+                request.setType(lt);
+
+                request.setReason(rs.getString("reasonDetail"));
+                request.setStartDate(rs.getDate("startDate"));
+                request.setEndDate(rs.getDate("endDate"));
+                request.setAttachment(rs.getString("attachment"));
+                request.setStatus(rs.getString("status"));
+                User u = new User();
+                u.setUsername(rs.getString("createdBy"));
+                request.setCreatedBy(u);
+                request.setCreatedDate(rs.getTimestamp("createdDate"));
+
+                Employee e = new Employee();
+                e.setEmpID(rs.getString("ownerID"));
+                request.setOwner(e);
+
+                return request;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LeaveRequestDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 
     @Override
@@ -114,8 +214,10 @@ public class LeaveRequestDB extends DBContext<LeaveRequest> {
             e.printStackTrace();
             try {
                 connection.rollback();
+
             } catch (SQLException ex) {
-                Logger.getLogger(LeaveRequestDB.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LeaveRequestDB.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -148,8 +250,10 @@ public class LeaveRequestDB extends DBContext<LeaveRequest> {
             e.printStackTrace();
             try {
                 connection.rollback();
+
             } catch (SQLException ex) {
-                Logger.getLogger(LeaveRequestDB.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LeaveRequestDB.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -162,6 +266,32 @@ public class LeaveRequestDB extends DBContext<LeaveRequest> {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void updateLeaveRequestStatus(int id, String status, String managerUsername, Timestamp approvalDate) {
+        String sql = "UPDATE LeaveRequests SET status = ?, approvalDate = ?, approvalBy = ? WHERE requestID = ?";
+
+        try {
+            connection.setAutoCommit(false);
+
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            // Set the parameters in the SQL query
+            stmt.setString(1, status);          // Status of the leave request
+            stmt.setTimestamp(2, approvalDate); // Approval date as a timestamp
+            stmt.setString(3, managerUsername); // Manager who processed the request
+            stmt.setInt(4, id);                 // ID of the leave request
+
+            // Execute the update query
+            stmt.executeUpdate();
+            connection.commit();
+        } catch(SQLException e){
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(LeaveRequestDB.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

@@ -1,0 +1,218 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 24, 2025, 3:12:51 AM
+    Author     : admin
+*/
+
+/*Poppins font*/
+/*Poppins font*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/*COLOR VARIABLE*/
+:root {
+    --primary-color: #0d1936;
+    --secondary-color: #535354;
+    --background-color: #efefef;
+    --shadow-color: rgba(0,0,0,0.1);
+    --white-color: #fff;
+    --black-color: #000;
+    --input-border-color: #e3e4e6;
+    --transition-3s: 0.3s;
+}
+
+
+/*GLOBAL STYLES*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/*REUSABLE ELEMENTS*/
+a{
+    text-decoration: none;
+    color: var(--black-color);
+    transition: var(--transition-3s) ;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150vh;
+    background-color: var(--background-color);
+}
+
+
+/*WRAPPER*/
+.wrapper{
+    position: relative;
+    width: 750px;
+    height: 1000px;
+    background-color: var(--white-color);
+    border-radius: 15px;
+    padding: 120px 32px 64px;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 8px 15px var(--shadow-color);
+    transition: var(--transition-3s);
+}
+
+.wrapper form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/*FORM HEADER*/
+.form-header{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    height: 70px;
+    background-color: var(--primary-color);
+    border-radius: 0 0 20px 20px;
+}
+
+/*TITLES*/
+.titles{
+    position: relative;
+}
+.title-leave{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: var(--white-color);
+    font-size: 24px;
+    transition: var(--transition-3s);
+}
+
+
+/*FORM*/
+.register-form{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    transition: var(--transition-3s);
+}
+
+
+/*INPUT FIELDS*/
+input::placeholder{
+    font-size: 14px;
+}
+.input-box{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+.input-field{
+    width: 100%;
+    height: 55px;
+    font-size: 19px;
+    background: transparent;
+    color: var(--black-color);
+    padding: 0 45px 0 25px;  
+    border: 1px solid var(--input-border-color);
+    border-radius: 30px;    /*Make it round:)))*/
+    outline: none;
+    transition: var(--transition-3s);
+}
+.input-field:focus{
+    border: 1px solid var(--primary-color);
+}
+.label{
+    position: absolute;
+    top: 0;
+    left: 20px;
+    transform: translateY(-50%);
+    color: var(--secondary-color);
+    font-size: 14;
+    background-color: var(--white-color);
+    padding: 0 10px;
+    transition: 0.2s;
+    cursor: text;
+}
+.input-field:focus~.label{
+    color: var(--primary-color);
+}
+.icon{
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--secondary-color);
+}
+.input-box{
+    font-size: 19px;
+}
+
+
+/*SUBMIT BUTTON*/
+.btn-submit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 50px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition-3s);
+}
+.btn-submit:hover{
+    gap: 15px;
+}
+.btn-submit i{
+    font-size: 20px;
+}
+
+
+/*SWITCH FORM*/
+.switch-form{
+    text-align: center;
+}
+.switch-form a{
+    font-weight: 500;
+}
+
+.form-cols {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;  /* Space between the buttons */
+}
+
+.input-textarea {
+    width: 100%; /* Chiều rộng đầy đủ của phần tử chứa */
+    height: 200px; /* Chiều cao của textarea */
+    font-size: 18px; /* Cỡ chữ */
+    padding: 15px 10px; /* Khoảng cách từ viền vào bên trong */
+    resize: none; /* Không cho phép thay đổi kích thước */
+    border-radius: 8px; /* Làm tròn các góc */
+    border: 1px solid #ccc; /* Đặt viền cho textarea */
+    margin-top: 10px; /* Khoảng cách giữa textarea và nhãn "Reason" */
+    box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước của textarea */
+    overflow-y: auto; /* Cho phép cuộn khi nội dung vượt quá chiều cao */
+    word-wrap: break-word; /* Đảm bảo văn bản tự động xuống dòng */
+    white-space: normal; /* Đảm bảo văn bản sẽ xuống dòng khi cần thiết */
+}

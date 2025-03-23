@@ -64,19 +64,20 @@ public class CreateLeaveRequestController extends BaseRequiredAuthentication {
             String leaveTypeId = request.getParameter("typeID");
             String reason = request.getParameter("reason");
 
-            // Handle file upload for attachment
             Part filePart = request.getPart("attachment");
             String attachment = null;
             if (filePart != null && filePart.getSize() > 0) {
-                String fileName = extractFileName(filePart);
+                String originalFileName = extractFileName(filePart);
+                // Generate a unique file name using timestamp and original name
+                String uniqueFileName = System.currentTimeMillis() + "_" + originalFileName;
                 // Save the file to a designated directory (e.g., "uploads/")
                 String uploadPath = getServletContext().getRealPath("") + "uploads/";
                 java.io.File uploadDir = new java.io.File(uploadPath);
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
                 }
-                filePart.write(uploadPath + fileName);
-                attachment = "uploads/" + fileName; // Store relative path
+                filePart.write(uploadPath + uniqueFileName);
+                attachment = "uploads/" + uniqueFileName; // Store relative path with unique name
             }
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

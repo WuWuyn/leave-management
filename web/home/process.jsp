@@ -1,6 +1,6 @@
 <%-- 
-    Document   : history
-    Created on : Mar 23, 2025, 12:31:17 AM
+    Document   : process
+    Created on : Mar 23, 2025, 11:57:45 PM
     Author     : admin
 --%>
 
@@ -116,7 +116,7 @@
             }
 
             table th:nth-child(2), table td:nth-child(2) {
-                width: 100px;
+                width: 70px;
             }
 
             table th:nth-child(3), table td:nth-child(3) {
@@ -130,10 +130,11 @@
             }
 
             table th:nth-child(4), table td:nth-child(4),
-            table th:nth-child(5), table td:nth-child(5),
-            table th:nth-child(8), table td:nth-child(8),
-            table th:nth-child(9), table td:nth-child(9) {
-                text-align: right;
+            table th:nth-child(5), table td:nth-child(5){
+                width:100px;
+            }
+            table th:nth-child(9), table td:nth-child(9){
+                width: 70px;
             }
         </style>
 
@@ -206,7 +207,7 @@
         <!--Section for display content-->
         <section class="home-section">
             <div class="content-wrapper">
-                <button onclick="window.location.href = '${pageContext.request.contextPath}/request/create'">Create a Leave Request</button>
+
                 <table border="1">
                     <thead>
                         <tr>
@@ -218,12 +219,12 @@
                             <th>Status</th>
                             <th>Created Date</th>
                             <th>Approval Date</th>
-                            <th>Attachment</th>
-                            <th>Detail</th>
+                            <th>File</th>
+                            <th>Process</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${sessionScope.requests}" var="r" varStatus="status">
+                        <c:forEach items="${sessionScope.staffRequest}" var="r" varStatus="status">
                             <tr>
                                 <td>${status.index + 1}</td>
                                 <td>${r.owner.empID}</td>
@@ -240,7 +241,19 @@
                                         </a>
                                     </c:if>
                                 </td>
-                                <td><a href="detail?id=${r.id}">View</a></td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${r.status == 'Pending'}">
+                                            <form action="${pageContext.request.contextPath}/request/process">
+                                                <input type="hidden" name="id" value="${r.id}">
+                                                <button type="submit" class="process-btn">Process</button>
+                                            </form>
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${r.approvalBy.username}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -267,4 +280,3 @@
     </body>
 
 </html>
-

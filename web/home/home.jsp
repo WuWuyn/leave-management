@@ -74,21 +74,12 @@
                 </li>
                 <c:if test="${!(sessionScope.user.emp.staffs eq null)}">
                     <li>
-                        <a href="${pageContext.request.contextPath}/agenda">
-                            <i class="bx bx-pie-chart-alt-2"></i>
-                            <span class="link_name">Agenda</span>
-                        </a>
-                        <ul class="sub-menu blank">
-                            <li><a class="link_name">Agenda</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/staffrequest">
                         <i class="bx bx-line-chart"></i>
-                        <span class="link_name">Process Request</span>
+                        <span class="link_name">Staff Request</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name">Process Request</a></li>
+                        <li><a class="link_name">Staff Request</a></li>
                     </ul>
                 </li>
                 </c:if>
