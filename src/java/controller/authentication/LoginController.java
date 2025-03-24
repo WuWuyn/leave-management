@@ -27,7 +27,7 @@ public class LoginController extends HttpServlet {
     private void sendOtp(String toEmail, String otp) {
         Email email = new Email();
         
-        email.setFrom("admin", "admin@trial-3yxj6ljkjx7gdo2r.mlsender.net");
+        email.setFrom("admin", "email");
         email.addRecipient("user", toEmail);
         
         email.setSubject("Your OTP Code");
@@ -35,7 +35,7 @@ public class LoginController extends HttpServlet {
         email.setPlain("Your OTP code is: "+otp);
         
         MailerSend ms = new MailerSend();
-        ms.setToken("mlsn.9e19f476fefa2375e2d5952dea97517f7a6b2ae089b03f4ca5cfaa78ace73f32");
+        ms.setToken("token_mailer_send");
         
         try {
             MailerSendResponse response = ms.emails().send(email);
@@ -62,17 +62,16 @@ public class LoginController extends HttpServlet {
         
         if (email != null) {
             
-//            String otp = generateOTP();
-//            req.getSession().setAttribute("otp", otp);
-//            req.getSession().setAttribute("otp_timestamp", System.currentTimeMillis());
+            String otp = generateOTP();
+            req.getSession().setAttribute("otp", otp);
+            req.getSession().setAttribute("otp_timestamp", System.currentTimeMillis());
             req.getSession().setAttribute("email", email);
 
 
-            resp.sendRedirect("home");
             
-//            sendOtp(email, otp);
-//
-//            req.getRequestDispatcher("auth/verify.jsp").forward(req, resp);
+            sendOtp(email, otp);
+
+            req.getRequestDispatcher("auth/verify.jsp").forward(req, resp);
         } else {
             req.setAttribute("error_login", "Invalid username or password");
             req.getRequestDispatcher("auth/login.jsp").forward(req, resp);

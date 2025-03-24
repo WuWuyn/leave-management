@@ -92,8 +92,8 @@
                     <label for="reason" class="label">Manager Comment</label>
                 </div>
 
-                <c:if test="${requestScope.re.status} ne Pending">
-                    <!--Button-->
+                <!--Button-->
+                <c:if test="${requestScope.re.status == 'Pending'}">
                     <div class="form-cols">
                         <button class="btn-submit" name="action" type="submit" value="Approved">Approved<i class='bx bx-check' ></i></button>
                         <button class="btn-submit" name="action" type="submit" value="Rejected">Rejected<i class='bx bx-x'></i></button>
