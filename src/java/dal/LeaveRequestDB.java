@@ -45,7 +45,7 @@ public class LeaveRequestDB extends DBContext<LeaveRequest> {
                 request.setReason(rs.getString("reasonDetail"));
                 request.setStartDate(rs.getDate("startDate"));
                 request.setEndDate(rs.getDate("endDate"));
-                request.setAttachment(rs.getString("attachment"));
+                request.setAttachment(rs.getNString("attachment"));
                 request.setStatus(rs.getString("status"));
                 request.setCreatedBy(user);
                 request.setCreatedDate(rs.getTimestamp("createdDate"));
@@ -108,7 +108,7 @@ public class LeaveRequestDB extends DBContext<LeaveRequest> {
                 request.setReason(rs.getString("reasonDetail"));
                 request.setStartDate(rs.getDate("startDate"));
                 request.setEndDate(rs.getDate("endDate"));
-                request.setAttachment(rs.getString("attachment"));
+                request.setAttachment(rs.getNString("attachment"));
                 request.setStatus(rs.getString("status"));
                 request.setCreatedBy(user);
                 request.setCreatedDate(rs.getTimestamp("createdDate"));
@@ -159,7 +159,7 @@ public class LeaveRequestDB extends DBContext<LeaveRequest> {
                 request.setReason(rs.getString("reasonDetail"));
                 request.setStartDate(rs.getDate("startDate"));
                 request.setEndDate(rs.getDate("endDate"));
-                request.setAttachment(rs.getString("attachment"));
+                request.setAttachment(rs.getNString("attachment"));
                 request.setStatus(rs.getString("status"));
                 User u = new User();
                 u.setUsername(rs.getString("createdBy"));

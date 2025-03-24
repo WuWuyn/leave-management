@@ -59,7 +59,7 @@
                     <p class="separator">or</p>
                     <!--Using google Account-->
                     <div class="separator">
-                        <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:9999/Leave_Management/loginGG&response_type=code&client_id=852731301744-6n2l3c242k7l5c1gnjisd190hmcnff0f.apps.googleusercontent.com&approval_prompt=force" >Sign in with Google Account</a>
+                        <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=your_url&response_type=code&client_id=your_client_id&approval_prompt=force" >Sign in with Google Account</a>
                     </div>
                 </div>
 
